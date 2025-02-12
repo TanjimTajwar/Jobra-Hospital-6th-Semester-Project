@@ -1,2 +1,1 @@
-# SifatJami
-Project of Sifat Jami Read write project
+# Jami-s_DBMS_Project
