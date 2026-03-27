@@ -1,0 +1,645 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% ---------- Color Theme ----------
+\definecolor{Primary}{HTML}{0B3C5D}
+\definecolor{Secondary}{HTML}{1D70A2}
+\definecolor{Accent}{HTML}{F39C12}
+\definecolor{SoftBlue}{HTML}{EAF4FB}
+\definecolor{SoftGray}{HTML}{F5F7FA}
+\definecolor{SoftGreen}{HTML}{E9F7EF}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=Secondary,
+    urlcolor=Secondary,
+    pdftitle={Jobra Hospital Management System Report},
+    pdfauthor={CSE Project Team},
+    pdfsubject={DBMS Full Stack Project Report}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{Primary}{\textbf{Project Report}}}
+\rhead{\textcolor{Primary}{\textbf{Jobra Hospital Management System}}}
+\cfoot{\textcolor{Secondary}{\thepage}}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{Secondary}\leaders\hrule height \headrulewidth\hfill}}
+
+\setstretch{1.25}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\Large\bfseries\color{Primary}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{Secondary}}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{Primary}}{\thesubsubsection}{0.5em}{}
+
+\newcommand{\infobox}[1]{
+    \vspace{0.4em}
+    \noindent\colorbox{SoftBlue}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{#1}}
+    \vspace{0.4em}
+}
+
+\newcommand{\placeholder}[2]{
+    \begin{figure}[H]
+        \centering
+        \fcolorbox{Secondary}{SoftGray}{\parbox[c][5cm][c]{0.9\linewidth}{\centering\textcolor{Primary}{\textbf{#1}}\\[0.4em]\textcolor{Secondary}{#2}}}
+        \caption{#1}
+    \end{figure}
+}
+
+\begin{document}
+
+% --------------------- COVER PAGE ---------------------
+\begin{titlepage}
+    \centering
+    \vspace*{1.2cm}
+    {\Huge\color{Primary}\textbf{Final Deliverable: Part-2}}\\[0.25cm]
+    {\Large\color{Secondary}\textbf{Project Report and Deployment Documentation}}\\[1.4cm]
+    
+    {\Huge\textbf{\textcolor{Primary}{Jobra Hospital Management System}}}\\[0.6cm]
+    {\large\textcolor{Secondary}{A Multi-Role Web-Based Hospital Service Platform}}\\[1.2cm]
+    
+    \rowcolors{2}{SoftGray}{white}
+    \begin{tabular}{>{\bfseries}p{5.5cm} p{6.5cm}}
+        Team Member Name & Tanjim Tajwar Arnab \\
+        Student ID & 22701066 \\
+        Team Member Name & Sabrina Sultana \\
+        Student ID & 22701067 \\
+        Team Member Name & Hafiz Hasnat Sifar Jami \\
+        Student ID & 22701068 \\
+        Team Member Name & Muznabin Ahmed \\
+        Student ID & 22701069 \\
+    \end{tabular}
+    
+    \vfill
+    
+    \infobox{
+    \textbf{Course:} Database Management Systems / Web Engineering \hfill
+    \textbf{Semester:} 6th\\
+    \textbf{Department:} Computer Science and Engineering\\
+    \textbf{Project Type:} Full Stack DBMS Application\\
+    \textbf{Submission Date:} \today
+    }
+    
+    \vfill
+    {\small\textcolor{Secondary}{Prepared for academic evaluation and demonstration.}}
+\end{titlepage}
+
+% --------------------- PRELIMINARY PAGES ---------------------
+\tableofcontents
+\newpage
+
+\section*{Executive Abstract}
+\addcontentsline{toc}{section}{Executive Abstract}
+The \textbf{Jobra Hospital Management System} is a role-based, full-stack web application developed to digitize common operational workflows of a hospital or clinic. The project combines a React frontend, a Node.js/Express backend, and a MySQL relational database to provide a complete data-driven platform for \textbf{Admin}, \textbf{Doctor}, and \textbf{Patient} users.
+
+The system supports the complete lifecycle of healthcare interaction in this project scope: user registration and login, doctor-patient appointment management, clinical report writing, complaint handling, and profile management for each role. The solution emphasizes database normalization, role-based access control, and practical API integration.
+
+\infobox{
+\textbf{Core Outcome:} The project successfully demonstrates real-world DBMS concepts through multi-table relational data, role-aware business logic, CRUD operations, and secure authentication flow.
+}
+
+\newpage
+
+% --------------------- 1. INTRODUCTION ---------------------
+\section{Introduction}
+\subsection{Background}
+Manual hospital operations often lead to duplicated data entry, delayed communication, and inefficient record tracking. A digital system is required to centralize operational data and make patient services faster and more reliable.
+
+\subsection{Problem Statement}
+Hospitals need a secure and role-specific system where:
+\begin{itemize}[leftmargin=1.2cm]
+    \item Patients can access services online without physical queue dependency.
+    \item Doctors can manage appointments and medical notes efficiently.
+    \item Admin users can monitor and control platform-wide operations.
+\end{itemize}
+
+\subsection{Proposed Solution}
+This project provides a web-based solution with:
+\begin{itemize}[leftmargin=1.2cm]
+    \item Role-based dashboards and protected routes.
+    \item Centralized MySQL data storage.
+    \item REST APIs for modular data operations.
+    \item Secure login and token-based session flow.
+\end{itemize}
+
+% --------------------- 2. PROJECT GOALS ---------------------
+\section{Project Goals and Objectives}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Build a centralized hospital service management platform.
+    \item Implement role-based access for Admin, Doctor, and Patient users.
+    \item Allow patients to book, track, and cancel appointments.
+    \item Enable doctors to update appointment status and write medical reports.
+    \item Enable patients to submit complaints and feedback.
+    \item Provide admin-level visibility across users, appointments, and complaints.
+    \item Demonstrate practical full-stack and DBMS integration in an academic project.
+\end{itemize}
+
+% --------------------- 3. TECH STACK ---------------------
+\section{Technology Stack}
+\subsection{Frontend Layer}
+\begin{itemize}[leftmargin=1.2cm]
+    \item React (component-based SPA)
+    \item React Router (client-side routing and route protection)
+    \item Axios (API communication)
+    \item Context API (authentication state handling)
+    \item Custom CSS by module/role
+\end{itemize}
+
+\subsection{Backend Layer}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Node.js runtime
+    \item Express.js framework
+    \item JWT for token-based authentication
+    \item bcrypt for password hashing
+    \item CORS and dotenv configuration
+\end{itemize}
+
+\subsection{Data Layer}
+\begin{itemize}[leftmargin=1.2cm]
+    \item MySQL (relational database)
+    \item mysql2 package for query execution
+    \item SQL schema file for reproducible database setup
+\end{itemize}
+
+% --------------------- 4. SYSTEM ARCHITECTURE ---------------------
+\section{System Architecture}
+\subsection{Architectural Pattern}
+The implementation follows a layered full-stack architecture:
+\begin{enumerate}[leftmargin=1.2cm]
+    \item \textbf{Frontend UI Layer} (React pages/components).
+    \item \textbf{Service Layer} (Axios services for API abstraction).
+    \item \textbf{Backend Route Layer} (Express route definitions).
+    \item \textbf{Controller/Model Layer} (business logic + SQL access).
+    \item \textbf{MySQL Data Layer} (persistent relational storage).
+\end{enumerate}
+
+\subsection{Access Control Design}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Middleware verifies token authenticity.
+    \item Role-check middleware enforces endpoint-level permission.
+    \item Frontend protected route component prevents unauthorized UI access.
+\end{itemize}
+
+\infobox{
+\textbf{Architecture Advantage:} Separation of concerns keeps features modular, easier to maintain, and suitable for incremental extension in future semesters.
+}
+
+% --------------------- 5. USER ROLES ---------------------
+\section{User Roles and Responsibilities}
+\rowcolors{2}{SoftGray}{white}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{2.5cm} X}
+\toprule
+Role & Responsibilities \\
+\midrule
+Admin & View and manage system users, monitor appointments, review complaints, and oversee overall platform operations. \\
+Doctor & View doctor-side appointments, update appointment status, write medical reports, maintain profile, and review patient complaints. \\
+Patient & Register/login, manage profile, browse doctors, book appointments, cancel appointments when needed, view medical reports, and submit complaints. \\
+\bottomrule
+\end{tabularx}
+
+% --------------------- 6. DETAILED MODULES ---------------------
+\section{Detailed Module Description}
+\subsection{Authentication Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Separate registration endpoints for patient, doctor, and admin roles.
+    \item Passwords are hashed before database insertion.
+    \item Login checks all role tables and issues JWT with role and user id.
+    \item Frontend stores session information and redirects to role dashboard.
+\end{itemize}
+
+\subsection{Profile Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Authenticated users can fetch their own profile.
+    \item Users can update profile information through a dedicated update endpoint.
+    \item Profile pages are separated by role in the UI for clarity.
+\end{itemize}
+
+\subsection{Doctor and Patient Directory Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Doctor lists are available for patient appointment booking and admin reference.
+    \item Patient lists are available for admin and doctor-side monitoring.
+\end{itemize}
+
+\subsection{Appointment Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Patient can create a new appointment request.
+    \item Doctor can view assigned appointments and update status (for example: accepted/rejected/completed based on system flow).
+    \item Patient can view personal appointments and cancel when required.
+    \item Admin can view all appointments and perform administrative deletion.
+\end{itemize}
+
+\subsection{Medical Report Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Doctor creates treatment/consultation reports for patients.
+    \item Patient can view own medical reports from dashboard.
+    \item Doctor can review reports written by self.
+\end{itemize}
+
+\subsection{Complaint Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Patient can submit service complaints.
+    \item Doctor can view complaints relevant to doctor-side review.
+    \item Admin can view all complaints for monitoring and quality control.
+\end{itemize}
+
+\subsection{Admin Management Module}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Consolidated user listing from role-based user tables.
+    \item Endpoint support for deleting and updating user records.
+    \item Role-specific edit endpoints for doctor and patient information.
+\end{itemize}
+
+% --------------------- 7. IMPLEMENTED ROUTES ---------------------
+\section{Implemented API Endpoints}
+\subsection{Authentication APIs}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{POST /api/auth/register/patient}
+    \item \texttt{POST /api/auth/register/doctor}
+    \item \texttt{POST /api/auth/register/admin}
+    \item \texttt{POST /api/auth/login}
+\end{itemize}
+
+\subsection{Profile APIs}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{GET /api/profile/me}
+    \item \texttt{PUT /api/profile/update}
+\end{itemize}
+
+\subsection{Doctor/Patient/Admin APIs}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{GET /api/doctor/list}
+    \item \texttt{GET /api/doctor/patients}
+    \item \texttt{GET /api/patient/all}
+    \item \texttt{GET /api/admin/users}
+    \item \texttt{GET /api/admin/user/:id}
+    \item \texttt{DELETE /api/admin/users/:id}
+    \item \texttt{PUT /api/admin/users/:id}
+    \item \texttt{PUT /api/admin/doctor/:id}
+    \item \texttt{PUT /api/admin/patient/:id}
+\end{itemize}
+
+\subsection{Appointment/Report/Complaint APIs}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{POST /api/appointment/book}
+    \item \texttt{GET /api/appointment/my}
+    \item \texttt{GET /api/appointment/doctor}
+    \item \texttt{PUT /api/appointment/status/:id}
+    \item \texttt{GET /api/appointment/all}
+    \item \texttt{DELETE /api/appointment/:id}
+    \item \texttt{PUT /api/appointment/cancel/:id}
+    \item \texttt{POST /api/report/add}
+    \item \texttt{GET /api/report/patient}
+    \item \texttt{GET /api/report/doctor}
+    \item \texttt{POST /api/complaint/add}
+    \item \texttt{GET /api/complaint/my}
+    \item \texttt{GET /api/complaint/doctor}
+    \item \texttt{GET /api/complaint/all}
+\end{itemize}
+
+% --------------------- 8. DATABASE DESIGN ---------------------
+\section{Database Design and Data Model}
+\subsection{Database Name}
+\texttt{jobra\_hospital}
+
+\subsection{Tables in Schema}
+\rowcolors{2}{SoftGray}{white}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4cm} X}
+\toprule
+Table Name & Purpose \\
+\midrule
+\texttt{jh\_admins} & Stores administrator account and profile details. \\
+\texttt{jh\_doctors} & Stores doctor account and professional profile details. \\
+\texttt{jh\_patients} & Stores patient account and personal profile details. \\
+\texttt{jh\_appointments} & Maintains appointment requests, schedule, and status. \\
+\texttt{jh\_reports} & Stores clinical reports written by doctors for patients. \\
+\texttt{jh\_complaints} & Stores complaint entries submitted by patients. \\
+\texttt{jh\_logins} & Reserved/login-related table in schema for authentication support. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Entity Relationships (Conceptual)}
+\begin{itemize}[leftmargin=1.2cm]
+    \item One doctor can have many appointments.
+    \item One patient can have many appointments.
+    \item One doctor can write many reports; one patient can receive many reports.
+    \item Complaints are linked with patient and optionally doctor references.
+\end{itemize}
+
+% --------------------- 9. PROJECT WORKFLOW ---------------------
+\section{End-to-End Workflow Description}
+\subsection{Patient Journey}
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Patient registers account and logs in.
+    \item Patient updates profile if required.
+    \item Patient checks available doctors.
+    \item Patient books appointment and tracks appointment status.
+    \item Patient can submit complaint and view own medical reports.
+\end{enumerate}
+
+\subsection{Doctor Journey}
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Doctor logs in to role-specific dashboard.
+    \item Doctor checks appointment requests.
+    \item Doctor updates appointment status.
+    \item Doctor writes medical report for consulted patient.
+    \item Doctor reviews complaint and own profile details.
+\end{enumerate}
+
+\subsection{Admin Journey}
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Admin logs in to monitoring dashboard.
+    \item Admin reviews users, appointments, and complaints.
+    \item Admin updates/deletes records based on management need.
+    \item Admin keeps the system organized and consistent.
+\end{enumerate}
+
+% --------------------- 10. FRONTEND PAGE MAP ---------------------
+\section{Frontend Route Map}
+\subsection{Public Routes}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{/} (Login)
+    \item \texttt{/register}
+\end{itemize}
+
+\subsection{Patient Routes}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{/patient}, \texttt{/patient/info}, \texttt{/patient/edit}
+    \item \texttt{/patient/book}, \texttt{/patient/appointments}, \texttt{/patient/doctors}
+    \item \texttt{/patient/complaint}, \texttt{/patient/report}
+\end{itemize}
+
+\subsection{Doctor Routes}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{/doctor}, \texttt{/doctor/info}, \texttt{/doctor/edit}
+    \item \texttt{/doctor/patients}, \texttt{/doctor/appointments}
+    \item \texttt{/doctor/reviews}, \texttt{/doctor/write-report}
+\end{itemize}
+
+\subsection{Admin Routes}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \texttt{/admin}, \texttt{/admin/info}, \texttt{/admin/edit}
+    \item \texttt{/admin/appointments}, \texttt{/admin/add}
+    \item \texttt{/admin/doctors}, \texttt{/admin/patients}, \texttt{/admin/complaints}
+\end{itemize}
+
+% --------------------- 11. INSTALLATION ---------------------
+\section{Installation and Execution Guide}
+\subsection{Project Structure (High Level)}
+\begin{verbatim}
+Jobra-Hospital-6th-Semester-Project/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   └── server.js
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── services/
+│   └── styles/
+└── database.sql
+\end{verbatim}
+
+\subsection{Backend Setup}
+\begin{verbatim}
+cd backend
+npm install
+npm run dev
+\end{verbatim}
+
+\subsection{Frontend Setup}
+\begin{verbatim}
+npm install
+npm start
+\end{verbatim}
+
+\subsection{Database Setup}
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Create MySQL database: \texttt{jobra\_hospital}
+    \item Import schema from \texttt{database.sql}
+    \item Configure backend \texttt{.env} credentials
+\end{enumerate}
+
+% --------------------- 12. SECURITY NOTES ---------------------
+\section{Security Features}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Password hashing with \texttt{bcrypt}.
+    \item Token-based authentication with \texttt{JWT}.
+    \item Role-based authorization middleware for API access control.
+    \item Frontend protected routes for role-specific navigation safety.
+\end{itemize}
+
+\subsection{Current Limitations Identified}
+\begin{itemize}[leftmargin=1.2cm]
+    \item JWT secret is currently hardcoded in implementation and should be moved fully to environment variables.
+    \item CORS is open by default and should be restricted to approved client origins.
+    \item Admin add-user payload format and register endpoint field expectations need full alignment.
+\end{itemize}
+
+% --------------------- 13. SCREENSHOT SECTION ---------------------
+\section{Key Interface Screenshots}
+\infobox{Replace each placeholder with your real project screenshots before final submission.}
+
+\placeholder{Login and Register Interface}{Insert screenshot from authentication pages.}
+\placeholder{Admin Dashboard}{Insert screenshot of admin home and quick actions.}
+\placeholder{Doctor Dashboard}{Insert screenshot of doctor module cards/navigation.}
+\placeholder{Patient Dashboard}{Insert screenshot of patient quick service panel.}
+\placeholder{Book Appointment Page}{Insert screenshot of booking form and doctor selection.}
+\placeholder{Doctor Appointment Management}{Insert screenshot of doctor appointment status update view.}
+\placeholder{Medical Report Page}{Insert screenshot showing report writing or report list view.}
+\placeholder{Complaint Module}{Insert screenshot of complaint submission/listing page.}
+
+% --------------------- 14. TESTING SUMMARY ---------------------
+\section{Testing and Validation Summary}
+\subsection{Functional Validation}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Login and role-based redirection verified.
+    \item CRUD behavior validated across appointments, complaints, and reports.
+    \item API request/response validation performed through frontend integration and endpoint testing.
+\end{itemize}
+
+\subsection{Usability Validation}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Navigation is role-focused and dashboard oriented.
+    \item Main workflows require limited steps and are understandable for first-time users.
+\end{itemize}
+
+% --------------------- 15. DOCUMENTATION SUITE ---------------------
+\section{Documentation Suite}
+\subsection{Code Documentation (GitHub Repository)}
+The source code is maintained with Git and hosted in a GitHub repository for version tracking, review, and collaboration.
+\begin{itemize}[leftmargin=1.2cm]
+    \item Repository Link: \url{https://github.com/TanjimTajwar/Jobra-Hospital-6th-Semester-Project.git}
+\end{itemize}
+
+\subsection{Technical Documentation}
+This report includes complete technical documentation, including:
+\begin{itemize}[leftmargin=1.2cm]
+    \item technology stack and architecture model,
+    \item database schema and conceptual relationships,
+    \item implemented modules and route-level API mapping,
+    \item security design and system limitations.
+\end{itemize}
+
+\subsection{User Documentation}
+User-facing guidance is provided through:
+\begin{itemize}[leftmargin=1.2cm]
+    \item installation and setup instructions,
+    \item role-based workflow steps for patient, doctor, and admin users,
+    \item route map and dashboard behavior explanation,
+    \item screenshot placeholders for step-by-step UI demonstration.
+\end{itemize}
+
+\subsection{API Documentation}
+The report contains endpoint documentation categorized by module:
+\begin{itemize}[leftmargin=1.2cm]
+    \item authentication, profile, admin, doctor, and patient services,
+    \item appointment, report, and complaint services,
+    \item access-control behavior through middleware.
+\end{itemize}
+
+% --------------------- 16. AGILE + TEAM COLLABORATION ---------------------
+\section{Agile Methodology and Team Collaboration}
+\subsection{Agile Methodology Adherence}
+Development followed an iterative workflow inspired by agile practices:
+\begin{itemize}[leftmargin=1.2cm]
+    \item sprint-style module completion (auth, appointments, reports, complaints),
+    \item frequent integration between frontend and backend layers,
+    \item continuous fixes and refinement after feature-level testing,
+    \item incremental feature addition with role-by-role delivery.
+\end{itemize}
+
+\subsection{Team Collaboration and Task Distribution}
+\rowcolors{2}{SoftGray}{white}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.6cm} >{\bfseries}p{2.7cm} X}
+\toprule
+Member Name & ID & Contribution \\
+\midrule
+Tanjim Tajwar Arnab & 22701066 & Backend and database design, API development, middleware, and DB integration. \\
+Sabrina Sultana & 22701067 & Admin frontend implementation, admin dashboard pages, and admin-side UI interactions. \\
+Hafiz Hasnat Sifar Jami & 22701068 & Doctor frontend implementation, doctor dashboard, appointment/review/report interfaces. \\
+Muznabin Ahmed & 22701069 & Patient frontend implementation, booking flow, complaint/report access, and patient UI features. \\
+\bottomrule
+\end{tabularx}
+
+% --------------------- 17. ENGINEERING QUALITY EVALUATION ---------------------
+\section{Engineering Quality Evaluation}
+\subsection{Version Control Usage}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Git used for source control and change history.
+    \item GitHub used for repository hosting and collaboration.
+    \item Commit-based progress tracking enabled safer integration.
+\end{itemize}
+
+\subsection{Feature Completeness}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Core multi-role features are implemented end-to-end.
+    \item Authentication, appointment management, reporting, complaints, and profile update are functional.
+    \item Admin supervision modules are integrated for operational control.
+\end{itemize}
+
+\subsection{User Experience Quality}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Role-focused dashboards reduce user confusion.
+    \item Clear navigation paths for major workflows.
+    \item Modular page design improves readability and usability.
+\end{itemize}
+
+\subsection{Error Handling}
+\begin{itemize}[leftmargin=1.2cm]
+    \item API-level validation and status messaging are used for major operations.
+    \item Frontend handles API failures with user-visible feedback in workflow pages.
+    \item Additional centralized validation and error formatting are identified as future enhancements.
+\end{itemize}
+
+\subsection{Cross-Browser Compatibility}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Frontend uses standards-compliant React and CSS implementation.
+    \item Intended compatibility: Chrome, Firefox, Edge, and other modern browsers.
+    \item No browser-specific dependency is required for core workflow operation.
+\end{itemize}
+
+\subsection{Code Quality and Architecture}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Modular structure: routes, controllers, models, services, and pages.
+    \item Separation of concerns supports maintainability.
+    \item Role-based middleware keeps business logic organized and secure.
+\end{itemize}
+
+\subsection{Proper Use of Chosen Technologies}
+\begin{itemize}[leftmargin=1.2cm]
+    \item React used for componentized role-based interfaces.
+    \item Express used for scalable REST API routing.
+    \item MySQL used for relational, constraint-oriented data management.
+    \item JWT and bcrypt used for session control and credential security.
+\end{itemize}
+
+\subsection{Security Implementation}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Password hashing, token authentication, and route-level role authorization are implemented.
+    \item Protected frontend routing reduces unauthorized page-level access.
+    \item Secret handling and stricter CORS policy are identified for hardening.
+\end{itemize}
+
+\subsection{Performance Optimization}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Lightweight API response flow for role-specific modules.
+    \item Structured database tables for direct relational querying.
+    \item Scope for future optimization: pagination, indexing strategy, and caching.
+\end{itemize}
+
+% --------------------- 18. FUTURE IMPROVEMENTS ---------------------
+\section{Future Scope and Enhancements}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Notification system (email/SMS/WhatsApp) for appointment reminders.
+    \item Better validation and standardized error messages for all forms.
+    \item Search, filter, and pagination for large doctor/patient datasets.
+    \item Prescription module and downloadable PDF reports.
+    \item Advanced analytics dashboard for admin-level decision support.
+    \item Stronger security hardening (Bearer token convention, stricter CORS, refresh token strategy).
+\end{itemize}
+
+% --------------------- 19. CONTRIBUTION AND REFLECTION ---------------------
+\section{Contribution and Learning Reflection}
+\subsection{Technical Learning}
+This project strengthened understanding of:
+\begin{itemize}[leftmargin=1.2cm]
+    \item Full-stack architecture and module separation.
+    \item Relational database design and foreign key relationships.
+    \item Middleware-based authorization and secure authentication.
+    \item API-driven frontend integration patterns.
+\end{itemize}
+
+\subsection{Project Outcome Reflection}
+The completed system serves as a practical and scalable foundation for a real hospital management product. It demonstrates that structured DBMS design plus modular full-stack development can significantly improve service quality, record consistency, and administrative control.
+
+% --------------------- 20. CONCLUSION ---------------------
+\section{Conclusion}
+The \textbf{Jobra Hospital Management System} successfully fulfills its primary mission: transforming manual hospital operations into a digital, role-based, data-centric workflow. From login and profile management to appointments, reporting, complaints, and centralized administration, the application provides an academically strong and functionally complete demonstration of DBMS-centered full-stack engineering.
+
+The current implementation is deployment-ready for academic demonstration and can be elevated to production quality through incremental improvements in security hardening, validation quality, and operational tooling.
+
+\section*{License}
+\addcontentsline{toc}{section}{License}
+This software is developed as an academic project for educational purposes.
+
+\end{document}

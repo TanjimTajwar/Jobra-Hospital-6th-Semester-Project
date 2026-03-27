@@ -57,13 +57,6 @@ Jobra Hospital Management System is a full‑stack DBMS project built to digital
 
 ```text
 Jobra-Hospital-6th-Semester-Project/
-├─ backend/
-│  ├─ controllers/      # Business logic (auth, admin, doctor, patient, appointment, reports, complaints, profile)
-│  ├─ middleware/       # Auth & role‑check middlewares
-│  ├─ routes/           # Express routes (mounted under /api)
-│  ├─ utils/            # JWT utilities
-│  ├─ config/, models/  # DB connection & query helpers
-│  └─ server.js         # Express app entry point
 ├─ frontend/
 │  ├─ public/           # CRA public assets
 │  ├─ src/
@@ -71,6 +64,13 @@ Jobra-Hospital-6th-Semester-Project/
 │  │  ├─ context/       # Auth context
 │  │  ├─ services/      # API service modules
 │  │  └─ styles/        # CSS files
+│  ├─ backend/
+│  │  ├─ controllers/      # Business logic (auth, admin, doctor, patient, appointment, reports, complaints, profile)
+│  │  ├─ middleware/       # Auth & role‑check middlewares
+│  │  ├─ routes/           # Express routes (mounted under /api)
+│  │  ├─ utils/            # JWT utilities
+│  │  ├─ config/, models/  # DB connection & query helpers
+│  │  └─ server.js         # Express app entry point
 │  └─ package.json
 └─ database.sql         # Full MySQL schema for jobra_hospital
 ```
@@ -136,11 +136,11 @@ This creates the `jobra_hospital` database and all required tables.
 ## 6. Backend Setup (Node + Express)
 
 ```bash
-cd backend
+cd frontend/backend
 npm install
 ```
 
-Create a `.env` file in the `backend/` folder (if you don’t already have one) with your database configuration, for example:
+Create a `.env` file in the `frontend/backend/` folder (if you don’t already have one) with your database configuration, for example:
 
 ```env
 PORT=5000
@@ -177,6 +177,13 @@ npm start
 The React app will run on `http://localhost:3000`.
 
 Make sure the frontend API base URL (in the service files under `src/services/`) points to your backend server, typically `http://localhost:5000/api`.
+
+To run both frontend and backend together from `frontend/`:
+
+```bash
+cd frontend
+npm run start:full
+```
 
 ---
 
