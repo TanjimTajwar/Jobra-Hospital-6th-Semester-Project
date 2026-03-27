@@ -6,5 +6,6 @@ const c = require('../controllers/profileController');
 const auth = require('../middleware/auth');
 
 router.get('/me', auth, c.myProfile);
+router.put('/update', auth, c.updateProfile);
 
 module.exports = router;
