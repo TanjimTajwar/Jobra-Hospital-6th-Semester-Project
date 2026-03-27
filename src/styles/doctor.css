@@ -1,0 +1,358 @@
+/* =============================
+   Doctor page backgrounds
+============================= */
+
+.doctor-bg {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.doctor-bg {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.96),
+    rgba(249, 115, 22, 0.18)
+  );
+  z-index: 0;
+}
+
+.doctor-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-bg.doctor-dashboard-page {
+  background-image: url('../bg_images/DoctorDashboard.jpeg');
+}
+
+.doctor-bg.doctor-appointments-page {
+  background-image: url('../bg_images/Doctor_Appointment.jpeg');
+}
+
+.doctor-bg.doctor-mypatients-page {
+  background-image: url('../bg_images/Doctor_myPatients.png');
+}
+
+.doctor-bg.doctor-writereport-page {
+  background-image: url('../bg_images/Doctor_WriteReports.png');
+}
+
+/* =============================
+   Doctor Appointments
+============================= */
+
+.table-card {
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  padding: 1rem 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: rgba(234, 88, 12, 0.08);
+  transition: var(--transition);
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-success:hover {
+  opacity: 0.9;
+}
+
+.btn-danger {
+  background-color: #ff4d4f;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+}
+
+
+/* =============================
+   Doctor Dashboard
+============================= */
+.dashboard-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboard-links li a {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  transition: all var(--transition);
+}
+
+.dashboard-links li a:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-card {
+    padding: 1.5rem;
+  }
+
+  .dashboard-links li a {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* =============================
+   My Patients Table
+============================= */
+
+.table-card {
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  padding: 1rem 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: rgba(30, 144, 255, 0.1);
+  transition: var(--transition);
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+}
+/* =============================
+   Doctor Reviews
+============================= */
+
+.doctor-reviews {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-card {
+  background-color: var(--card-bg);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.review-text {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.review-date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .review-card {
+    padding: 1rem;
+  }
+
+  .review-header {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+
+/* =============================
+   Write Report Form
+============================= */
+
+.report-card {
+  max-width: 1700px;
+  margin: 2rem  2rem auto;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: var(--primary-color);
+}
+
+.form-group select,
+.form-group textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 50px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(234, 88, 12, 0.25);
+}
+
+.report-form button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.report-form button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .report-card {
+    padding: 1.5rem;
+  }
+}

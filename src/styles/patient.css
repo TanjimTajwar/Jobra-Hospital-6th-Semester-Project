@@ -1,0 +1,434 @@
+/* =============================
+   Patient page backgrounds
+============================= */
+
+.patient-bg {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.patient-bg {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.96),
+    rgba(248, 113, 113, 0.18)
+  );
+  z-index: 0;
+}
+
+.patient-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+.patient-bg.patient-dashboard-page {
+  background-image: url('../bg_images/Patient_Dashboard.jpeg');
+}
+
+.patient-bg.patient-book-page {
+  background-image: url('../bg_images/Patient_BookAppointment.jpeg');
+}
+
+.patient-bg.patient-doctorlist-page {
+  background-image: url('../bg_images/Patient_DoctorList.png');
+}
+
+.patient-bg.patient-myappointments-page {
+  background-image: url('../bg_images/Patient_myAppointment.png');
+}
+
+.patient-bg.patient-myreports-page {
+  background-image: url('../bg_images/Patient_myreports.png');
+}
+
+.patient-bg.patient-writecomplaint-page {
+  background-image: url('../bg_images/Patient_writecomplaint.png');
+}
+
+/* =============================
+   Book Appointment
+============================= */
+
+.appointment-card {
+  max-width: 600px;
+  margin: 2rem auto 2rem auto;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: var(--primary-color);
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(220, 38, 38, 0.25);
+}
+
+.appointment-form button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.appointment-form button:hover {
+  opacity: 0.9;
+}
+
+/* Alerts */
+.alert {
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .appointment-card {
+    padding: 1.5rem;
+  }
+}
+/* =============================
+   Doctor List Table
+============================= */
+
+.doctor-card {
+  max-width: 900px;
+  margin: 2rem auto 2rem auto;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  overflow-x: auto;
+}
+
+.doctor-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doctor-table th,
+.doctor-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.doctor-table th {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+.doctor-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.doctor-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .doctor-table th,
+  .doctor-table td {
+    padding: 0.6rem;
+  }
+}
+/* =============================
+   My Appointments Table
+============================= */
+
+.appointment-card {
+  max-width: 800px;
+  margin: 2rem auto 2rem auto;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  overflow-x: auto;
+}
+
+.appointment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointment-table th,
+.appointment-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.appointment-table th {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+.appointment-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.appointment-table tr:hover {
+  background-color: rgba(220, 38, 38, 0.06);
+}
+
+/* Cancel Button */
+.btn-cancel {
+  background-color: #f44336;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-cancel:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .appointment-table th,
+  .appointment-table td {
+    padding: 0.5rem;
+  }
+}
+/* =============================
+   My Medical Reports
+============================= */
+
+.report-list-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.report-card {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow);
+  background-color: #fff;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.report-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.report-doctor {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.report-date {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.report-card p {
+  margin: 0.4rem 0;
+  line-height: 1.4;
+}
+
+/* Alerts */
+.alert {
+  padding: 0.7rem 1rem;
+  margin: 0 0 1rem 0;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .report-list-card {
+    padding: 1rem;
+  }
+
+  .report-card {
+    padding: 0.8rem 1rem;
+  }
+}
+/* =============================
+   Patient Dashboard
+============================= */
+
+.dashboard-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  text-align: center;
+}
+
+.dashboard-title {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.dashboard-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-links li {
+  margin: 0.8rem 0;
+}
+
+.dashboard-links li a {
+  display: inline-block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.dashboard-links li a:hover {
+  background-color: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .dashboard-card {
+    padding: 1.5rem;
+  }
+
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+}
+/* =============================
+   Write Complaint Form
+============================= */
+
+.complaint-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.8rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.complaint-card label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.complaint-card select,
+.complaint-card textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.complaint-card textarea {
+  min-height: 120px;
+}
+
+.btn-submit {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-submit:hover {
+  background-color: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .complaint-card {
+    padding: 1rem;
+  }
+
+  .complaint-card textarea {
+    min-height: 100px;
+  }
+}
