@@ -1,0 +1,12 @@
+# Build the React app at repo root. Set REACT_APP_API_URL in Netlify
+# (Site settings → Environment variables) to your Railway API, e.g.
+# https://your-service.up.railway.app/api
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

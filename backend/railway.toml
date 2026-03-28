@@ -1,0 +1,9 @@
+# Deploy this service with Railway Root Directory set to: backend
+# (Settings → Service → Root Directory → backend)
+# Clear any custom "Build Command" that references a `frontend` folder.
+
+[build]
+buildCommand = "npm ci"
+
+[deploy]
+startCommand = "npm start"

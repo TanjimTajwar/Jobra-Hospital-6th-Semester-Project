@@ -6,7 +6,10 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const corsOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean)
+    : true;
+app.use(cors({ origin: corsOrigins }));
 app.use(express.json());
 
 // Test Route
